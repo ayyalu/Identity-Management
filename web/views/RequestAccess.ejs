@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>1ID</title>
+<link rel="stylesheet" href="../public/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="../public/css/style.css" type="text/css">
+<link rel="stylesheet" href="../public/css/sweet-alert.css" type="text/css">
+<link rel="stylesheet" href="../public/css/style_bank.css" type="text/css">
+
+<script>
+
+var UserAddress="";
+
+window.addEventListener('load', async () => {
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            await ethereum.enable();
+			UserAddress=web3.eth.coinbase;
+			document.getElementById("txtUserAddress").value=UserAddress;
+        } catch (error) {
+            alert("User denied account access...");
+        }
+    }
+    else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+		UserAddress=web3.eth.coinbase;
+		document.getElementById("txtUserAddress").value=UserAddress;
+    }
+    else {
+        alert('Non-Ethereum browser detected. You should consider trying MetaMask!');
+    }
+});
+
+
+function AddDLRequest()
+{
+	var ABIString = document.getElementById("hdnContractABI").value; 
+	ABIString = ABIString.replace(/'/g , "\"");
+	ABIJSON = JSON.parse(ABIString);
+	MyContract = web3.eth.contract(ABIJSON).at("<%=ContractAddress%>");
+
+	var RequestedBy = document.getElementById("txtInstituteName").value; 
+	
+	var DL_No = 0; 
+	var DL_Name = 0; 
+	var DL_DOB = 0; 
+	var DL_Hash = 0; 
+	var DL_Address = 0; 
+	var DL_OverAll_Status = 1; 
+	
+	if(document.getElementById("chk_DL_No").checked)
+	{
+		DL_No=1;
+	}
+
+	if(document.getElementById("chk_DL_Name").checked)
+	{
+		DL_Name=1;
+	}
+	
+	if(document.getElementById("chk_DL_DOB").checked)
+	{
+		DL_DOB=1;
+	}
+	
+	if(document.getElementById("chk_DL_Hash").checked)
+	{
+		DL_Hash=1;
+	}
+	
+	if(document.getElementById("chk_DL_Address").checked)
+	{
+		DL_Address=1;
+	}
+	
+	MyContract.AddDLRequest.sendTransaction(UserAddress,RequestedBy,DL_No,DL_Name,DL_DOB,DL_Hash,DL_Address,DL_OverAll_Status,function(err, transactionHash) {
+		if(!err)
+		{
+			location.href="/Message?TransHash="+transactionHash;
+		}
+		else
+		{
+			console.log(err)
+		}
+	});
+
+}
+
+
+</script>
+
+</head>
+<body id="page-top">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+		<img src="../public/img/1ID-logo.png">
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a class="page-scroll" href="/">Home</a>
+			</li>
+		</ul>
+	</div>
+	<!-- /.navbar-collapse -->
+	
+</div>
+<!-- /.container -->
+</nav>
+
+<form name="IntelitixForm" method="post" action="pubcert.asp">
+<div class="container container_body">
+	<div class="row">
+		<div class="col-md-4 center-block">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Request Access</h3>
+				</div>
+				<div class="panel-body">
+
+					<div class="form-group">
+						<label class="control-label" for="txtInstituteName">Requesting Institution Name</label>
+						<input class="form-control" name="txtInstituteName" id="txtInstituteName" type="text" value="" placeholder="Institution Name">
+					</div>
+				
+					<div class="form-group">
+						<label class="control-label" for="txtUserAddress">User Blockchain ID</label>
+						<input class="form-control" name="txtUserAddress" id="txtUserAddress" type="text" value="" placeholder="User Blockchain ID">
+					</div>
+				
+					<table class="table table-bordered" id="certlistparent">
+						<tr>
+							<td colspan="2" align="center"><b>Select the required access</b></td>
+						</tr>
+						<tr>
+							<td width="10%">
+								<input id="chk_DL_No" type="checkbox" name="chk_DL_No" value=""/>
+							</td>
+							<td width="90%">
+								Driving Licence No.
+							</td>
+						</tr>
+						<tr>
+							<td width="10%">
+								<input id="chk_DL_Name" type="checkbox" name="chk_DL_Name" value=""/>
+							</td>
+							<td width="90%">
+								Name as per Driving Licence
+							</td>
+						</tr>
+						<tr>
+							<td width="10%">
+								<input id="chk_DL_DOB" type="checkbox" name="chk_DL_DOB" value=""/>
+							</td>
+							<td width="90%">
+								Date Of Birth as per Driving Licence
+							</td>
+						</tr>
+						<tr>
+							<td width="10%">
+								<input id="chk_DL_Hash" type="checkbox" name="chk_DL_Hash" value=""/>
+							</td>
+							<td width="90%">
+								Digital Licence Copy
+							</td>
+						</tr>
+						<tr>
+							<td width="10%">
+								<input id="chk_DL_Address" type="checkbox" name="chk_DL_Address" value=""/>
+							</td>
+							<td width="90%">
+								Address as per Driving Licence
+							</td>
+						</tr>
+					</table>
+					
+					<div class="aligncenter">
+						<button type="button" class="btn btnsm btn-primary" onClick="AddDLRequest()">Request Access</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<br>
+	</div>
+
+</div>
+
+<input type="hidden" id="hdnContractABI" name="hdnContractABI" value="[{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'}],'name':'ViewDLRequestDetail','outputs':[{'name':'RequestedBy','type':'string'},{'name':'DL_No','type':'uint256'},{'name':'DL_Name','type':'uint256'},{'name':'DL_DOB','type':'uint256'},{'name':'DL_Hash','type':'uint256'},{'name':'DL_Address','type':'uint256'},{'name':'DL_OverAll_Status','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'name':'AddUser','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'ViewDLRequestLength','outputs':[{'name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'DL_No','type':'string'},{'name':'DL_Name','type':'string'},{'name':'DL_DOB','type':'string'},{'name':'DL_Hash','type':'bytes'},{'name':'DL_Address','type':'string'}],'name':'AddUserDL','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'}],'name':'viewUserDL','outputs':[{'name':'DL_No_S','type':'uint256'},{'name':'DL_No_V','type':'string'},{'name':'DL_Name_S','type':'uint256'},{'name':'DL_Name_V','type':'string'},{'name':'DL_DOB_S','type':'uint256'},{'name':'DL_DOB_V','type':'string'},{'name':'DL_Hash_S','type':'uint256'},{'name':'DL_Hash_V','type':'bytes'},{'name':'DL_Address_S','type':'uint256'},{'name':'DL_Address_V','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'}],'name':'ViewDLRequestHeader','outputs':[{'name':'RequestedBy','type':'string'},{'name':'DL_OverAll_Status','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'UserIndex','type':'uint256'}],'name':'viewUser','outputs':[{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'},{'name':'DL_No','type':'uint256'},{'name':'DL_Name','type':'uint256'},{'name':'DL_DOB','type':'uint256'},{'name':'DL_Hash','type':'uint256'},{'name':'DL_Address','type':'uint256'},{'name':'DL_OverAll_Status','type':'uint256'}],'name':'UpdateRequestStatus','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestedBy','type':'string'},{'name':'DL_No','type':'uint256'},{'name':'DL_Name','type':'uint256'},{'name':'DL_DOB','type':'uint256'},{'name':'DL_Hash','type':'uint256'},{'name':'DL_Address','type':'uint256'},{'name':'DL_OverAll_Status','type':'uint256'}],'name':'AddDLRequest','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'inputs':[],'payable':false,'stateMutability':'nonpayable','type':'constructor'}]">
+
+</form>
+
+<footer class="navbar-fixed-bottom">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="footer-copyright">
+				&copy; 2019 1ID
+			</div>
+		</div>
+	</div>
+</div>
+</footer>
+
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/bootstrap.min.js"></script>
+<script src="../public/js/sweet-alert.min.js"></script>
+
+</body>
+</html>

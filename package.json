@@ -1,0 +1,25 @@
+{
+  "name": "kyc-node",
+  "version": "1.0.0",
+  "description": "POC on Ethereum blockchain for Identity management",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "POC",
+    "on",
+    "Ethereum",
+    "blockchain",
+    "for",
+    "Identity",
+    "management"
+  ],
+  "author": "Ayyalu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  }
+}

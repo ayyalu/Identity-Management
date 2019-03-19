@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>1ID</title>
+<link rel="stylesheet" href="../public/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="../public/css/style.css" type="text/css">
+<link rel="stylesheet" href="../public/css/sweet-alert.css" type="text/css">
+</head>
+
+<body id="page-top">
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+<div class="container">
+	<!-- Brand and toggle get grouped for better mobile display -->
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+		<img src="../public/img/1ID-logo.png">
+	</div>
+
+	<!-- Collect the nav links, forms, and other content for toggling -->
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a class="page-scroll" href="/">Home</a>
+			</li>
+		</ul>
+	</div>
+	<!-- /.navbar-collapse -->
+	
+</div>
+<!-- /.container -->
+</nav>
+
+<form name="IntelitixForm" method="post">
+<div class="container container_body">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-2">
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">User Menu</h3>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-bordered" id="certlistparent">
+						<tr>
+							<td width="100%"><a href="/AddUser"><font color='blue'>Create Wallet</font></a></td>
+						</tr>
+						<tr>
+							<td><a href="/AddUserDL"><font color='blue'>Add Driving Licence</font></a></td>
+						</tr>
+						<tr>
+							<td><a href="/ViewRequest"><font color='blue'>View & Approve Access</font></a></td>
+						</tr>
+					</table>
+				
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="panel panel-bank">
+				<div class="panel-heading">
+					<h3 class="panel-title">Institution Menu</h3>
+				</div>
+				<div class="panel-body">
+
+					<table class="table table-bordered" id="certlistparent">
+						<tr>
+							<td><a href="/RequestAccess"><font color='blue'>Request Access</font></a></td>
+						</tr>
+						<tr>
+							<td><a href="/ViewRequest_Org"><font color='blue'>View Access Status</font></a></td>
+						</tr>
+					</table>
+				
+				</div>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+
+<input type="hidden" id="hdnContractABI" name="hdnContractABI" value="[{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'OrgCode','type':'uint256'},{'name':'ApprovalStatus','type':'uint256'}],'name':'UpdateRequestStatus','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'name':'AddUser','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'RequestIndex','type':'uint256'}],'name':'ViewRequest','outputs':[{'name':'OrgCode','type':'uint256'},{'name':'ApprovalStatus','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'viewAadhar','outputs':[{'name':'AadharNo','type':'uint256'},{'name':'DOB','type':'string'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'AadharNo','type':'uint256'},{'name':'DOB','type':'string'}],'name':'AddAadhar','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':false,'inputs':[{'name':'UserAddress','type':'address'},{'name':'OrgCode','type':'uint256'}],'name':'AddRequest','outputs':[],'payable':false,'stateMutability':'nonpayable','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'},{'name':'UserIndex','type':'uint256'}],'name':'viewUser','outputs':[{'name':'FullName','type':'string'},{'name':'EmailID','type':'string'},{'name':'MobileNo','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'getUserLength','outputs':[{'name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'constant':true,'inputs':[{'name':'UserAddress','type':'address'}],'name':'ViewRequestLength','outputs':[{'name':'','type':'uint256'}],'payable':false,'stateMutability':'view','type':'function'},{'inputs':[],'payable':false,'stateMutability':'nonpayable','type':'constructor'}]">
+
+</form>
+
+<div class='modal fade' id='mymodal'>
+    <div class='modal-dialog modal-lg'>
+      <div class='modal-content'>
+        <div class='modal-body'><iframe id="CertIFrame" src="" width="100%" height="500" frameborder="0"></iframe></div>
+        <div class='modal-footer'>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<footer class="navbar-fixed-bottom">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 text-center">
+			<div class="footer-copyright">
+				&copy; 2019 1ID
+			</div>
+		</div>
+	</div>
+</div>
+</footer>
+
+<script src="../public/js/jquery.js"></script>
+<script src="../public/js/bootstrap.min.js"></script>
+<script src="../public/js/sweet-alert.min.js"></script>
+
+</body>
+</html>
