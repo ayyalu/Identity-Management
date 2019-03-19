@@ -5,7 +5,7 @@ contract IdentityManagement
 
     address ContractOwner;
     
-    function DL() {
+    function IdentityManagement() {
         ContractOwner = msg.sender;
     }
 
